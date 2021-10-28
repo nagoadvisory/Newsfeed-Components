@@ -103,6 +103,7 @@ const data = [
     <span class="expandButton">+</span>
   </div>
 
+
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
@@ -114,3 +115,52 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+function articleMaker ( { title, date, firstParagraph, secondParagraph, thirdParagraph } ) { //these are all inputs that will change, notice how I left button and divs out as those are the same across all components we will build
+  const article = document.createElement('div');
+  const heading = document.createElement('h2');
+  const dates = document.createElement('p');
+  const firstparag = document.createElement('p');
+  const secondparag = document.createElement('p');
+  const thirdparag = document.createElement('p');
+  const buttonspan = document.createElement('span');
+
+// then sequence the order of these 
+  article.appendChild(heading);
+  article.appendChild(dates);
+  article.appendChild(firstparag);
+  article.appendChild(secondparag);
+  article.appendChild(thirdparag);
+  article.appendChild(buttonspan);
+
+// add classes
+  article.classList.add('article');
+  dates.classList.add('date');
+  buttonspan.classList.add('expandButton');
+
+// Provide the text content from the database
+  heading.textContent = title;
+  dates.textContent = date;
+  firstparag.textContent = firstParagraph;
+  secondparag.textContent = secondParagraph;
+  thirdparag.textContent = thirdParagraph;
+  buttonspan.textContent = 'CLICK ME FOO';
+
+  // adding an event listener to the button.   This listener should toggle the class 'article-open' on div.article.
+
+  buttonspan.addEventListener('click', event =>{
+    article.classList.toggle('article-open');
+})
+
+  //you must return the article which contains the rest
+  return article;
+}
+
+const articlePlaceholder = document.querySelector('.articles');
+
+//now I've created a function, I need to pass through goodies and place it somewhere (see variable above)
+data.forEach (article => {
+  const articleNew = articleMaker(article)
+  articlePlaceholder.appendChild(articleNew)
+})
+
